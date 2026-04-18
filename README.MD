@@ -45,7 +45,7 @@ credit-risk-dashboard/
 
 **1. Clone the repository**
 ```bash
-git clone https://github.com/your-username/credit-risk-dashboard.git
+git clone https://github.com/RubenMC-44/credit-risk-dashboard.git
 cd credit-risk-dashboard
 ```
 
