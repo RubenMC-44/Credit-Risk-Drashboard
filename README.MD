@@ -7,7 +7,7 @@ An interactive dashboard for credit risk analysis and real-time client risk pred
 This project uses the **Give Me Some Credit** dataset from Kaggle (150,000 clients) to build a machine learning model capable of identifying clients at risk of serious financial delinquency. The result is a fully interactive dashboard that combines data exploration, model metrics, and live predictions.
 
 ## Demo
-
+https://credit-risk-drashboard-crboor6qufv2ptqzp4fwct.streamlit.app/
 ![Dashboard Preview](assets/preview.png)
 
 ## Features
