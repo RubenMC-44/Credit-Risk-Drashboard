@@ -111,4 +111,4 @@ Two models were trained and compared:
 
 ## Author
 
-Ruben Bonete — [ruben.bonete@gmail.com](mailto:ruben.bonete@gmail.com)
+Ruben Morcillo — [ruben.bonete@gmail.com](mailto:ruben.bonete@gmail.com)
