@@ -1,0 +1,18 @@
+# Data
+data.csv
+clean_data.csv
+
+# Model files
+model.pkl
+metrics_simple.pkl
+
+# Python
+__pycache__/
+*.pyc
+.env
+
+# Conda/pip
+*.egg-info/
+
+# VS Code
+.vscode/
