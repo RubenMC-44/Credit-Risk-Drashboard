@@ -2,10 +2,6 @@
 data.csv
 clean_data.csv
 
-# Model files
-model.pkl
-metrics_simple.pkl
-
 # Python
 __pycache__/
 *.pyc
