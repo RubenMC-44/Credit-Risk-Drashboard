@@ -2,10 +2,27 @@ import streamlit as st
 import pandas as pd
 import joblib
 import plotly.express as px
-from sklearn.metrics import classification_report
-model = joblib.load('model.pkl')
 
-df = pd.read_csv('clean_data.csv')
+#Creating a cache for the Resource, avoiding charging it every time that we use it. 
+@st.cache_resource
+def load_model():
+    return joblib.load('model.pkl')
+@st.cache_resource
+def load_metrics(): 
+    return joblib.load('metrics_simple.pkl')
+@st.cache_resource
+def load_scaler(): 
+    return joblib.load('scaler.pkl')
+
+
+#Creating the cache, to  make the sistem work faster.
+@st.cache_data
+def load_data():    
+    return pd.read_csv('clean_data.csv')
+
+#Our new Data frame came after call the function 
+df = load_data()
+
 
 st.set_page_config(
     page_title="Credit RisK Drashboard",
@@ -164,7 +181,7 @@ def page1():
         st.plotly_chart(fig, use_container_width=True)
 
     st.subheader("📊 Model Metrics")
-    metrics = joblib.load('metrics_simple.pkl')
+    metrics = load_metrics()
 
     col1, col2, col3 = st.columns(3)
 
@@ -175,8 +192,8 @@ def page1():
 
 def page2(): 
     st.subheader("🤖 Artificial intelligence - Model predictions 🚀")
-    model = joblib.load('model.pkl')
-    scaler = joblib.load('scaler.pkl')
+    model = load_model()
+    scaler = load_scaler()
     
     with st.form("prediction form"):
     
@@ -259,11 +276,26 @@ def page2():
             col_res_1 ,col_res_2 = st.columns([3,1])
 
             with col_res_1:
-                st.progress(y_pred[0][1])
+                st.caption(f'📉 Porcentage of RISK! {y_pred[0][1]:.2f}')
+                if y_pred[0][1] < 0.45:
+                    color = '#00cc96'
+                elif y_pred[0][1] <= 0.6:
+                    color = '#ffa500'
+                else:
+                    color = '#ef553b'
+
+                st.markdown(f"""
+                    <div style="
+                        background-color: {color};
+                        width: {round(y_pred[0][1] * 100)}%;
+                        height: 25px;
+                        border-radius: 5px;
+                    "></div>
+                """, unsafe_allow_html=True)
             with col_res_2:
-                if y_pred[0][1] >= 0.35 and y_pred[0][1] <= 0.5:
+                if y_pred[0][1] >= 0.45 and y_pred[0][1] <= 0.6:
                     st.error("⚠️ The client is ON Alert Necessary to check")
-                elif y_pred[0][1] > 0.5:
+                elif y_pred[0][1] > 0.6:
                     st.error("⚠️ The client is ON RISK!")
                 else:
                     st.success("✅ The client has NO RISK!")

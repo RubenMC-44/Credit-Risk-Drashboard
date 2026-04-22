@@ -32,7 +32,6 @@ https://credit-risk-drashboard-crboor6qufv2ptqzp4fwct.streamlit.app/
 ```
 credit-risk-dashboard/
 │
-├── data.csv                  # Original dataset (cs-training.csv from Kaggle)
 ├── clean_data.csv            # Cleaned dataset after preprocessing
 ├── eda.py                    # Exploratory data analysis and data cleaning
 ├── model.py                  # Model training, evaluation and export
