@@ -176,6 +176,7 @@ def page1():
 def page2(): 
     st.subheader("🤖 Artificial intelligence - Model predictions 🚀")
     model = joblib.load('model.pkl')
+    scaler = joblib.load('scaler.pkl')
     
     with st.form("prediction form"):
     
@@ -252,13 +253,20 @@ def page2():
                     days60_input,
                     number_dependents_input,
                     ]]
-            
-            y_pred = model.predict(input_vector)
+            input_scaled = scaler.transform(input_vector)
+            y_pred = model.predict_proba(input_scaled)
 
-        if y_pred[0] == 1:
-            st.error("⚠️ The client is ON RISK!")
-        else:
-            st.success("✅ The client has NO RISK!")
+            col_res_1 ,col_res_2 = st.columns([3,1])
+
+            with col_res_1:
+                st.progress(y_pred[0][1])
+            with col_res_2:
+                if y_pred[0][1] >= 0.35 and y_pred[0][1] <= 0.5:
+                    st.error("⚠️ The client is ON Alert Necessary to check")
+                elif y_pred[0][1] > 0.5:
+                    st.error("⚠️ The client is ON RISK!")
+                else:
+                    st.success("✅ The client has NO RISK!")
 
 
 st.title("Credit Drashboard")    
